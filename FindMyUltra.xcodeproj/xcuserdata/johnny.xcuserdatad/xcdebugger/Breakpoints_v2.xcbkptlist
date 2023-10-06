@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "A328CC40-FB87-42F4-A37A-A89C8851E53B"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "61FCD99A-8395-4DE4-BB4A-36B90A1AD9C1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FindMyUltra/Views/MapViews/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "595090F0-D4BE-4C8C-8573-060EA16F462B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FindMyUltra/Views/MapViews/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "595090F0-D4BE-4C8C-8573-060EA16F462B - 9066a0c680399687"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.sheet&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #1 (FindMyUltra.Location) -&gt; &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FindMyUltra.Location&gt;, Foundation.UUID, &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.safeAreaInset&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(edge: SwiftUI.VerticalEdge, alignment: SwiftUI.HorizontalAlignment, spacing: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in FindMyUltra.MapView.body.getter : some"
+                  moduleName = "FindMyUltra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/johnny/Documents/GitHub/FindMyUltra/FindMyUltra/Views/MapViews/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "595090F0-D4BE-4C8C-8573-060EA16F462B - 1e38a98d145cef55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.Text in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.sheet&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #1 (FindMyUltra.Location) -&gt; &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FindMyUltra.Location&gt;, Foundation.UUID, &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.safeAreaInset&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(edge: SwiftUI.VerticalEdge, alignment: SwiftUI.HorizontalAlignment, spacing: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in FindMyUltra.MapView.body.getter : some"
+                  moduleName = "FindMyUltra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/johnny/Documents/GitHub/FindMyUltra/FindMyUltra/Views/MapViews/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "595090F0-D4BE-4C8C-8573-060EA16F462B - 704828d5f1a77b15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #1 (FindMyUltra.Location) -&gt; &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FindMyUltra.Location&gt;, Foundation.UUID, &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.safeAreaInset&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(edge: SwiftUI.VerticalEdge, alignment: SwiftUI.HorizontalAlignment, spacing: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in FindMyUltra.MapView.body.getter : some"
+                  moduleName = "FindMyUltra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/johnny/Documents/GitHub/FindMyUltra/FindMyUltra/Views/MapViews/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "595090F0-D4BE-4C8C-8573-060EA16F462B - fa1528ad5323e7b1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.Text in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #1 (FindMyUltra.Location) -&gt; &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;FindMyUltra.Location&gt;, Foundation.UUID, &lt;&lt;opaque return type of _MapKit_SwiftUI.MapContent.annotationTitles(SwiftUI.Visibility) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.safeAreaInset&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(edge: SwiftUI.VerticalEdge, alignment: SwiftUI.HorizontalAlignment, spacing: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in FindMyUltra.MapView.body.getter : some"
+                  moduleName = "FindMyUltra"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/johnny/Documents/GitHub/FindMyUltra/FindMyUltra/Views/MapViews/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

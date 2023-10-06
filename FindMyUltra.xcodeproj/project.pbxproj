@@ -8,12 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		B20AEF6B2ACF601D009FFA2D /* FindMyUltraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF6A2ACF601D009FFA2D /* FindMyUltraApp.swift */; };
-		B20AEF6D2ACF601D009FFA2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF6C2ACF601D009FFA2D /* ContentView.swift */; };
+		B20AEF6D2ACF601D009FFA2D /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF6C2ACF601D009FFA2D /* Home.swift */; };
 		B20AEF6F2ACF601E009FFA2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20AEF6E2ACF601E009FFA2D /* Assets.xcassets */; };
 		B20AEF722ACF601E009FFA2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20AEF712ACF601E009FFA2D /* Preview Assets.xcassets */; };
 		B20AEF7C2ACF601E009FFA2D /* FindMyUltraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF7B2ACF601E009FFA2D /* FindMyUltraTests.swift */; };
 		B20AEF862ACF601E009FFA2D /* FindMyUltraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF852ACF601E009FFA2D /* FindMyUltraUITests.swift */; };
 		B20AEF882ACF601E009FFA2D /* FindMyUltraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF872ACF601E009FFA2D /* FindMyUltraUITestsLaunchTests.swift */; };
+		B20AEF982ACF6062009FFA2D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF952ACF6061009FFA2D /* Client.swift */; };
+		B20AEF992ACF6062009FFA2D /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF962ACF6062009FFA2D /* ApiError.swift */; };
+		B20AEF9A2ACF6062009FFA2D /* GenericApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEF972ACF6062009FFA2D /* GenericApi.swift */; };
+		B20AEFA82ACF60B4009FFA2D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFA42ACF60B4009FFA2D /* Location.swift */; };
+		B20AEFA92ACF60B4009FFA2D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFA52ACF60B4009FFA2D /* Event.swift */; };
+		B20AEFAE2ACF60E1009FFA2D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFAD2ACF60E1009FFA2D /* Constants.swift */; };
+		B20AEFB22ACF6106009FFA2D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFB12ACF6106009FFA2D /* MapViewModel.swift */; };
+		B20AEFB52ACF6183009FFA2D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFB42ACF6183009FFA2D /* MapView.swift */; };
+		B20AEFB72ACF6226009FFA2D /* RaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFB62ACF6226009FFA2D /* RaceList.swift */; };
+		B20AEFBB2AD057E5009FFA2D /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */; };
+		B20AEFBE2AD08178009FFA2D /* MultiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = B20AEFBD2AD08178009FFA2D /* MultiPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +47,7 @@
 /* Begin PBXFileReference section */
 		B20AEF672ACF601D009FFA2D /* FindMyUltra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindMyUltra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20AEF6A2ACF601D009FFA2D /* FindMyUltraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyUltraApp.swift; sourceTree = "<group>"; };
-		B20AEF6C2ACF601D009FFA2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B20AEF6C2ACF601D009FFA2D /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		B20AEF6E2ACF601E009FFA2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B20AEF712ACF601E009FFA2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B20AEF772ACF601E009FFA2D /* FindMyUltraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindMyUltraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +55,16 @@
 		B20AEF812ACF601E009FFA2D /* FindMyUltraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindMyUltraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20AEF852ACF601E009FFA2D /* FindMyUltraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyUltraUITests.swift; sourceTree = "<group>"; };
 		B20AEF872ACF601E009FFA2D /* FindMyUltraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyUltraUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B20AEF952ACF6061009FFA2D /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		B20AEF962ACF6062009FFA2D /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		B20AEF972ACF6062009FFA2D /* GenericApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericApi.swift; sourceTree = "<group>"; };
+		B20AEFA42ACF60B4009FFA2D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B20AEFA52ACF60B4009FFA2D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B20AEFAD2ACF60E1009FFA2D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B20AEFB12ACF6106009FFA2D /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		B20AEFB42ACF6183009FFA2D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		B20AEFB62ACF6226009FFA2D /* RaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceList.swift; sourceTree = "<group>"; };
+		B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20AEFBE2AD08178009FFA2D /* MultiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +116,12 @@
 		B20AEF692ACF601D009FFA2D /* FindMyUltra */ = {
 			isa = PBXGroup;
 			children = (
+				B20AEFAF2ACF60F3009FFA2D /* Views */,
+				B20AEFAC2ACF60D9009FFA2D /* Helpers */,
+				B20AEF9B2ACF6084009FFA2D /* Model */,
+				B20AEF942ACF6058009FFA2D /* Network */,
 				B20AEF6A2ACF601D009FFA2D /* FindMyUltraApp.swift */,
-				B20AEF6C2ACF601D009FFA2D /* ContentView.swift */,
+				B20AEF6C2ACF601D009FFA2D /* Home.swift */,
 				B20AEF6E2ACF601E009FFA2D /* Assets.xcassets */,
 				B20AEF702ACF601E009FFA2D /* Preview Content */,
 			);
@@ -127,6 +153,76 @@
 			path = FindMyUltraUITests;
 			sourceTree = "<group>";
 		};
+		B20AEF942ACF6058009FFA2D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEF962ACF6062009FFA2D /* ApiError.swift */,
+				B20AEF952ACF6061009FFA2D /* Client.swift */,
+				B20AEF972ACF6062009FFA2D /* GenericApi.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B20AEF9B2ACF6084009FFA2D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEFA52ACF60B4009FFA2D /* Event.swift */,
+				B20AEFA42ACF60B4009FFA2D /* Location.swift */,
+				B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B20AEFAC2ACF60D9009FFA2D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEFAD2ACF60E1009FFA2D /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B20AEFAF2ACF60F3009FFA2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEFB92AD05224009FFA2D /* RaceDetails */,
+				B20AEFB82AD05206009FFA2D /* FilterView */,
+				B20AEFB32ACF6164009FFA2D /* RaceList */,
+				B20AEFB02ACF60FD009FFA2D /* MapViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B20AEFB02ACF60FD009FFA2D /* MapViews */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEFB12ACF6106009FFA2D /* MapViewModel.swift */,
+				B20AEFB42ACF6183009FFA2D /* MapView.swift */,
+			);
+			path = MapViews;
+			sourceTree = "<group>";
+		};
+		B20AEFB32ACF6164009FFA2D /* RaceList */ = {
+			isa = PBXGroup;
+			children = (
+				B20AEFB62ACF6226009FFA2D /* RaceList.swift */,
+			);
+			path = RaceList;
+			sourceTree = "<group>";
+		};
+		B20AEFB82AD05206009FFA2D /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
+		B20AEFB92AD05224009FFA2D /* RaceDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RaceDetails;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +239,9 @@
 			dependencies = (
 			);
 			name = FindMyUltra;
+			packageProductDependencies = (
+				B20AEFBD2AD08178009FFA2D /* MultiPicker */,
+			);
 			productName = FindMyUltra;
 			productReference = B20AEF672ACF601D009FFA2D /* FindMyUltra.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +314,9 @@
 				Base,
 			);
 			mainGroup = B20AEF5E2ACF601D009FFA2D;
+			packageReferences = (
+				B20AEFBC2AD08178009FFA2D /* XCRemoteSwiftPackageReference "MultiPicker" */,
+			);
 			productRefGroup = B20AEF682ACF601D009FFA2D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +359,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20AEF6D2ACF601D009FFA2D /* ContentView.swift in Sources */,
+				B20AEF9A2ACF6062009FFA2D /* GenericApi.swift in Sources */,
+				B20AEFB52ACF6183009FFA2D /* MapView.swift in Sources */,
+				B20AEF6D2ACF601D009FFA2D /* Home.swift in Sources */,
+				B20AEF992ACF6062009FFA2D /* ApiError.swift in Sources */,
 				B20AEF6B2ACF601D009FFA2D /* FindMyUltraApp.swift in Sources */,
+				B20AEFAE2ACF60E1009FFA2D /* Constants.swift in Sources */,
+				B20AEFB22ACF6106009FFA2D /* MapViewModel.swift in Sources */,
+				B20AEFA82ACF60B4009FFA2D /* Location.swift in Sources */,
+				B20AEFA92ACF60B4009FFA2D /* Event.swift in Sources */,
+				B20AEF982ACF6062009FFA2D /* Client.swift in Sources */,
+				B20AEFB72ACF6226009FFA2D /* RaceList.swift in Sources */,
+				B20AEFBB2AD057E5009FFA2D /* FilterModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +700,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B20AEFBC2AD08178009FFA2D /* XCRemoteSwiftPackageReference "MultiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/toastersocks/MultiPicker";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B20AEFBD2AD08178009FFA2D /* MultiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B20AEFBC2AD08178009FFA2D /* XCRemoteSwiftPackageReference "MultiPicker" */;
+			productName = MultiPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B20AEF5F2ACF601D009FFA2D /* Project object */;
 }
