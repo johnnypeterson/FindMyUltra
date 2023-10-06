@@ -25,6 +25,7 @@
 		B20AEFB72ACF6226009FFA2D /* RaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFB62ACF6226009FFA2D /* RaceList.swift */; };
 		B20AEFBB2AD057E5009FFA2D /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */; };
 		B20AEFBE2AD08178009FFA2D /* MultiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = B20AEFBD2AD08178009FFA2D /* MultiPicker */; };
+		B20AEFC02AD0B813009FFA2D /* RaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFBF2AD0B813009FFA2D /* RaceDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		B20AEFB42ACF6183009FFA2D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		B20AEFB62ACF6226009FFA2D /* RaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceList.swift; sourceTree = "<group>"; };
 		B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		B20AEFBF2AD0B813009FFA2D /* RaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 		B20AEFB92AD05224009FFA2D /* RaceDetails */ = {
 			isa = PBXGroup;
 			children = (
+				B20AEFBF2AD0B813009FFA2D /* RaceDetails.swift */,
 			);
 			path = RaceDetails;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B20AEF9A2ACF6062009FFA2D /* GenericApi.swift in Sources */,
+				B20AEFC02AD0B813009FFA2D /* RaceDetails.swift in Sources */,
 				B20AEFB52ACF6183009FFA2D /* MapView.swift in Sources */,
 				B20AEF6D2ACF601D009FFA2D /* Home.swift in Sources */,
 				B20AEF992ACF6062009FFA2D /* ApiError.swift in Sources */,
@@ -537,6 +541,8 @@
 				DEVELOPMENT_TEAM = SX4W8Z58WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -566,6 +572,8 @@
 				DEVELOPMENT_TEAM = SX4W8Z58WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -11,7 +11,7 @@ import _MapKit_SwiftUI
 
 enum MapDetails {
     static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.8911054)
-    static let defaultSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    static let defaultSpan = MKCoordinateSpan(latitudeDelta: 3.0, longitudeDelta: 3.0)
 }
 
 @MainActor
@@ -52,8 +52,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             print("Location is restricted parental conrolls")
         case .authorizedAlways, .authorizedWhenInUse:
             if let location = locationManger.location {
-                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-                camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
+                camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
             }
         @unknown default:
             break

@@ -32,13 +32,13 @@ struct MapView: View {
                                coordinate: location.coordinate) {
                         ZStack {
                              Circle()
-                                 .foregroundStyle(.indigo.opacity(0.5))
+                                 .foregroundStyle(.orange.opacity(0.5))
                                  .frame(width: 80, height: 80)
                              Image(systemName: "figure.run.circle")
                                  .symbolEffect(.variableColor)
                                  .padding()
                                  .foregroundStyle(.white)
-                                 .background(Color.indigo)
+                                 .background(Color.orange)
                                  .clipShape(Circle())
                                  .onTapGesture{
                                      openURL(URL(string: "https://ultrasignup.com/register.aspx?eid=\(location.eventId)")!)
@@ -62,16 +62,18 @@ struct MapView: View {
                         }))
                 }
             }
-            .overlay(alignment: .topTrailing, content: {
+            .overlay(alignment: .bottomTrailing, content: {
             Button {
                 showAnotherSheet.toggle()
             } label: {
                 Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                    .font(.title2)
+                    .font(.largeTitle)
                     .foregroundColor(Color.indigo)
                     
             }
-            .padding(45)
+            .padding()
+            .padding(.bottom, 100)
+            
         })
 
             .mapStyle(.hybrid)
@@ -103,7 +105,7 @@ struct MapView: View {
                     }
                 }
             Picker("Distance", selection: $raceDistance) {
-                    ForEach(Difficulty.allCases) { option in
+                    ForEach(RaceDistance.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)
                     }
