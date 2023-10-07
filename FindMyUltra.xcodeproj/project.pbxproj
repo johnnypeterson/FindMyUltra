@@ -67,6 +67,7 @@
 		B20AEFB62ACF6226009FFA2D /* RaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceList.swift; sourceTree = "<group>"; };
 		B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		B20AEFBF2AD0B813009FFA2D /* RaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceDetails.swift; sourceTree = "<group>"; };
+		B20AEFC12AD2099F009FFA2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +119,7 @@
 		B20AEF692ACF601D009FFA2D /* FindMyUltra */ = {
 			isa = PBXGroup;
 			children = (
+				B20AEFC12AD2099F009FFA2D /* Info.plist */,
 				B20AEFAF2ACF60F3009FFA2D /* Views */,
 				B20AEFAC2ACF60D9009FFA2D /* Helpers */,
 				B20AEF9B2ACF6084009FFA2D /* Model */,
@@ -541,6 +543,7 @@
 				DEVELOPMENT_TEAM = SX4W8Z58WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FindMyUltra/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -572,6 +575,7 @@
 				DEVELOPMENT_TEAM = SX4W8Z58WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FindMyUltra/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

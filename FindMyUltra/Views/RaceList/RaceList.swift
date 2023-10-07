@@ -24,9 +24,10 @@ struct RaceList: View {
         NavigationView {
             if viewModel.events.isEmpty {
                 ProgressView()
-                    .scaleEffect(CGFloat(1.0), anchor: .center)
+                    .scaleEffect(CGFloat(2.0), anchor: .center)
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.indigo))
                     .padding(.bottom, 50)
+                   
             } else {
                 List(searchResults) { event in
                     NavigationLink(destination: RaceDetails(event: event)) {
@@ -59,10 +60,8 @@ struct RaceList: View {
                                     Image(systemName: "figure.run")
                                 }
                                 .font(.caption)
-                                
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            
                         }
                     }
                 }
@@ -82,7 +81,6 @@ struct RaceList: View {
             }
             
         }
-
         .sheet(isPresented: $showAnotherSheet) {
             NavigationView {
                 Text("Filter Shit")

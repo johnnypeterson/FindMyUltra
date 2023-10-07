@@ -16,24 +16,45 @@ struct RaceDetails: View {
                 switch phase {
                 case .empty:
                     Image(systemName: "photo")
-                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
+                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .center)
                 case .success(let image):
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
+                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .center)
                 case .failure:
                     Image(systemName: "photo")
-                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
+                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .center)
                 @unknown default:
                     EmptyView()
-                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
+                        .frame(maxWidth: .infinity, maxHeight: 300, alignment: .center)
                 }
+                   
             }
-            .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
-            
+      
+//            .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
+       
             Text("Distances: \(event.distances)")
             Text("City: \(event.city)")
             Text("Date: \(event.eventDate)")
+       
+            Button {
+                let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)")
+                if UIApplication.shared.canOpenURL(url!) {
+                      UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                }
+            } label : {
+                
+                Text("Directions")
+                    .foregroundColor(.white)
+                
+                
+            }
+            .frame(maxWidth: 150)
+            .padding()
+               .background(.indigo)
+               .clipShape(Capsule())
+               .controlSize(.large)
+              
             Button {
                 openURL(URL(string: "https://ultrasignup.com/register.aspx?eid=\(event.id)")!)
             } label : {
@@ -43,10 +64,16 @@ struct RaceDetails: View {
                 
                 
             }
+            .frame(maxWidth: 150)
             .padding()
                .background(.indigo)
                .clipShape(Capsule())
+               .controlSize(.large)
+            
+            
+           
         }
+        .font(.title3)
         .navigationTitle(event.eventName)
         
         

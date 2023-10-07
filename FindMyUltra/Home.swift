@@ -21,11 +21,13 @@ struct Home: View {
                     Label("List", systemImage: "list.dash")
                 }
         }
+        .accentColor(.indigo)
         .task {
             await viewModel.fetchEvents(raceDistance: nil, raceDifficulty: nil)
         }
         .onAppear{
             viewModel.checkIfLocationServicesIsEnabled()
+            
             
         }
         

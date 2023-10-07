@@ -26,14 +26,12 @@ struct MapView: View {
         NavigationStack {
             Map(position: $viewModel.camameraPosition) {
                 ForEach(viewModel.locations,id: \.id) { location in
-                    Annotation(location.name,
-                               coordinate: location.coordinate) {
+                    Annotation(location.name, coordinate: location.coordinate) {
                         ZStack {
                              Circle()
                                  .foregroundStyle(.orange.opacity(0.5))
                                  .frame(width: 80, height: 80)
                              Image(systemName: "figure.run.circle")
-//                                 .symbolEffect(.variableColor)
                                  .padding()
                                  .foregroundStyle(.white)
                                  .background(Color.orange)
@@ -43,12 +41,8 @@ struct MapView: View {
                                      showDetailsSheet.toggle()
                                  }
                          }
-                    
-                     
-                
                     }
                                .annotationTitles(.visible)
-                              
                 }
             }
             .sheet(isPresented: $showDetailsSheet) {
@@ -59,12 +53,8 @@ struct MapView: View {
                             .font(.title)
                         RaceDetails(event: event)
                     }
-             
-            
                 }
             }
-
-        
             .sheet(isPresented: $showAnotherSheet) {
                 NavigationView {
                     filterView()
@@ -74,7 +64,6 @@ struct MapView: View {
                                 await
                                 viewModel.fetchEvents(raceDistance: viewModel.raceDistance, raceDifficulty: viewModel.difficultyPicker)
                             }
-                                
                         }))
                 }
             }
@@ -91,7 +80,6 @@ struct MapView: View {
             .padding(.bottom, 100)
             
         })
-
             .mapStyle(.hybrid)
                 .ignoresSafeArea()
                 .safeAreaInset(edge: .bottom) {
@@ -101,7 +89,6 @@ struct MapView: View {
                 }
         }
     }
-
     @ViewBuilder
     func filterView() -> some View {
         Form {

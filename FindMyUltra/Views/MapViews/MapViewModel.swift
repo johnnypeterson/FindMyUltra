@@ -87,9 +87,11 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             URLQueryItem(name: "lat", value: String(describing: locationManger?.location?.coordinate.latitude)),
             URLQueryItem(name: "lng", value: String(describing: locationManger?.location?.coordinate.longitude)),
           
-            URLQueryItem(name: "mi", value: raceDistance?.network ?? "0"),
+            URLQueryItem(name: "mi", value: raceDistance?.network ?? "0")
             
-            URLQueryItem(name: "mo", value: "12")])
+            
+//            URLQueryItem(name: "mo", value: "12")
+            ])
             let response = try await client.fetch(type: Events.self, with: request)
             events = response.compactMap { $0 }
             events.forEach {
