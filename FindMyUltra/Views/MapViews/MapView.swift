@@ -9,8 +9,7 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct MapView: View {
-    @StateObject private var viewModel = MapViewModel()
- 
+    @ObservedObject var viewModel: MapViewModel
     @Environment(\.openURL) var openURL
     @State var difficultyPicker: Difficulty = .unranked
     @State var raceDistance: RaceDistance = .oneHundredPlus
@@ -86,15 +85,11 @@ struct MapView: View {
         })
 
             .mapStyle(.hybrid)
+            .onAppear{
+                events = viewModel.events
+            }
 
-                .task {
-                    await viewModel.fetchEvents()
-                    events = viewModel.events
-                }
-                .onAppear{
-                    viewModel.checkIfLocationServicesIsEnabled()
-                    
-                }
+               
                 .ignoresSafeArea()
                 .safeAreaInset(edge: .bottom) {
                     Rectangle()
@@ -124,7 +119,7 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView()
+    MapView(viewModel: MapViewModel())
         
 }
 

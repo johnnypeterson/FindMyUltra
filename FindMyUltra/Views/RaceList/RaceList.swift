@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RaceList: View {
     @Environment(\.openURL) var openURL
-    @StateObject private var viewModel = MapViewModel()
+    @ObservedObject var viewModel:MapViewModel
     @State var events = [Event]()
     @State private var searchText = ""
     @State var showAnotherSheet: Bool = false
@@ -93,8 +93,7 @@ struct RaceList: View {
                     }))
             }
         }
-        .task {
-            await viewModel.fetchEvents()
+        .onAppear{
             events = viewModel.events
         }
        
@@ -103,7 +102,7 @@ struct RaceList: View {
 }
 
 #Preview {
-    RaceList()
+    RaceList(viewModel: MapViewModel())
 }
 
 

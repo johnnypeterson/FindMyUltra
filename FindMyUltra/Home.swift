@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct Home: View {
+    @StateObject private var viewModel = MapViewModel()
     var body: some View {
         TabView {
-            MapView()
+            MapView(viewModel: viewModel)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
 
-            RaceList()
+            RaceList(viewModel: viewModel)
                 .tabItem {
                     Label("List", systemImage: "list.dash")
                 }
         }
+        .task {
+            await viewModel.fetchEvents()
+        }
+        .onAppear{
+            viewModel.checkIfLocationServicesIsEnabled()
+            
+        }
+        
     }
 }
 
