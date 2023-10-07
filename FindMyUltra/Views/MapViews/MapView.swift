@@ -11,8 +11,6 @@ import _MapKit_SwiftUI
 struct MapView: View {
     @ObservedObject var viewModel: MapViewModel
     @Environment(\.openURL) var openURL
-    @State var difficultyPicker: Difficulty = .unranked
-    @State var raceDistance: RaceDistance = .oneHundredPlus
     @State private var searchText = ""
     @State var showAnotherSheet: Bool = false
     @State var showDetailsSheet: Bool = false
@@ -35,7 +33,7 @@ struct MapView: View {
                                  .foregroundStyle(.orange.opacity(0.5))
                                  .frame(width: 80, height: 80)
                              Image(systemName: "figure.run.circle")
-                                 .symbolEffect(.variableColor)
+//                                 .symbolEffect(.variableColor)
                                  .padding()
                                  .foregroundStyle(.white)
                                  .background(Color.orange)
@@ -72,7 +70,11 @@ struct MapView: View {
                     filterView()
                         .navigationBarItems(trailing: Button("Apply Filters",
                                                              action: {showAnotherSheet.toggle()
-                        //TODO: Recall service
+                            Task{
+                                await
+                                viewModel.fetchEvents(raceDistance: viewModel.raceDistance, raceDifficulty: viewModel.difficultyPicker)
+                            }
+                                
                         }))
                 }
             }
@@ -103,13 +105,13 @@ struct MapView: View {
     @ViewBuilder
     func filterView() -> some View {
         Form {
-            Picker("Difficulty", selection: $difficultyPicker) {
+            Picker("Difficulty", selection: $viewModel.difficultyPicker) {
                     ForEach(Difficulty.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)
                     }
                 }
-            Picker("Distance", selection: $raceDistance) {
+            Picker("Distance", selection: $viewModel.raceDistance) {
                     ForEach(RaceDistance.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)

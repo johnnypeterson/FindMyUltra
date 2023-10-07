@@ -25,6 +25,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published private(set) var events: [Event] = []
     @Published private(set) var errorMessage: String = ""
     @Published var hasError: Bool = false
+    @Published var difficultyPicker: Difficulty = .unranked
+    @Published var raceDistance: RaceDistance = .oneHundredPlus
     
     private let client = Client()
     
@@ -74,7 +76,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
 //        return URLRequest(url: url)
 //    }()
 
-    func fetchEvents() async {
+    func fetchEvents(raceDistance: RaceDistance?, raceDifficulty: Difficulty? ) async {
         do {
             let urlString = "\(BASE_URL)/events.svc/closestevents"
             let url = URL(string: urlString)!
@@ -84,7 +86,9 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             URLQueryItem(name: "past", value: "0"),
             URLQueryItem(name: "lat", value: String(describing: locationManger?.location?.coordinate.latitude)),
             URLQueryItem(name: "lng", value: String(describing: locationManger?.location?.coordinate.longitude)),
-            URLQueryItem(name: "mi", value: "10"),
+          
+            URLQueryItem(name: "mi", value: raceDistance?.network ?? "0"),
+            
             URLQueryItem(name: "mo", value: "12")])
             let response = try await client.fetch(type: Events.self, with: request)
             events = response.compactMap { $0 }

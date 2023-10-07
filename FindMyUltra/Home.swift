@@ -22,7 +22,7 @@ struct Home: View {
                 }
         }
         .task {
-            await viewModel.fetchEvents()
+            await viewModel.fetchEvents(raceDistance: nil, raceDifficulty: nil)
         }
         .onAppear{
             viewModel.checkIfLocationServicesIsEnabled()
