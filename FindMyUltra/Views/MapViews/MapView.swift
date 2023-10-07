@@ -13,16 +13,15 @@ struct MapView: View {
     @Environment(\.openURL) var openURL
     @State var difficultyPicker: Difficulty = .unranked
     @State var raceDistance: RaceDistance = .oneHundredPlus
-    @State var events = [Event(bannerID: "9c07ee03-42c6-45be-9a66-3fe7c8e4611c", cancelled: false, city: "Mount plesant", distanceCategories: .ultra, distances: "24hrs, 12hrs, 6hrs", eventDate: "10/7/2023", eventDateEnd: nil, eventDateID: 52918, eventDateOriginal: "10/7/2023", eventDistances: nil, id: 16544, eventImages: [EventImage(imageID: "ff519604-2edb-4ca8-b86e-93f94c92f2d9", imageLabel: nil)], eventName: "The Midnight Dreary", eventType: 0, eventWebsite: "https://jsmossservices.wixsite.com/intentionalmovement", groupID: 0, groupName: nil, latitude: "32.8013", location: "", longitude: "-79.8888", postponed: false, state: "SC", virtualEvent: false), Event(bannerID: "9c07ee03-42c6-45be-9a66-3fe7c8e4611c", cancelled: false, city: "Mount plesant", distanceCategories: .ultra, distances: "24hrs, 12hrs, 6hrs", eventDate: "10/7/2023", eventDateEnd: nil, eventDateID: 52918, eventDateOriginal: "10/7/2023", eventDistances: nil, id: 12968, eventImages: [EventImage(imageID: "ff519604-2edb-4ca8-b86e-93f94c92f2d9", imageLabel: nil)], eventName: "Fuck This Race", eventType: 0, eventWebsite: "https://jsmossservices.wixsite.com/intentionalmovement", groupID: 0, groupName: nil, latitude: "32.8013", location: "", longitude: "-79.8888", postponed: false, state: "SC", virtualEvent: false)]
     @State private var searchText = ""
     @State var showAnotherSheet: Bool = false
     @State var showDetailsSheet: Bool = false
     @State var selectedEvent:Event?
     var searchResults: [Event] {
         if searchText.isEmpty {
-            return events
+            return viewModel.events
         } else {
-            return events.filter { $0.eventName.localizedCaseInsensitiveContains(searchText) }
+            return viewModel.events.filter { $0.eventName.localizedCaseInsensitiveContains(searchText) }
         }
     }
     var body: some View {
@@ -56,7 +55,14 @@ struct MapView: View {
             }
             .sheet(isPresented: $showDetailsSheet) {
                 if let event = selectedEvent {
-                    RaceDetails(event: event)
+                    VStack{
+                        Text(event.eventName)
+                            .bold()
+                            .font(.title)
+                        RaceDetails(event: event)
+                    }
+             
+            
                 }
             }
 
@@ -85,11 +91,6 @@ struct MapView: View {
         })
 
             .mapStyle(.hybrid)
-            .onAppear{
-                events = viewModel.events
-            }
-
-               
                 .ignoresSafeArea()
                 .safeAreaInset(edge: .bottom) {
                     Rectangle()

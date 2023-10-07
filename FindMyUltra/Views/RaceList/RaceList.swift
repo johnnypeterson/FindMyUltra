@@ -10,20 +10,19 @@ import SwiftUI
 struct RaceList: View {
     @Environment(\.openURL) var openURL
     @ObservedObject var viewModel:MapViewModel
-    @State var events = [Event]()
     @State private var searchText = ""
     @State var showAnotherSheet: Bool = false
     var searchResults: [Event] {
         if searchText.isEmpty {
-            return events
+            return viewModel.events
         } else {
-            return events.filter { $0.eventName.localizedCaseInsensitiveContains(searchText) }
+            return viewModel.events.filter { $0.eventName.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
     var body: some View {
         NavigationView {
-            if events.isEmpty {
+            if viewModel.events.isEmpty {
                 ProgressView()
                     .scaleEffect(CGFloat(1.0), anchor: .center)
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.indigo))
@@ -92,9 +91,6 @@ struct RaceList: View {
                         //TODO: Recall service
                     }))
             }
-        }
-        .onAppear{
-            events = viewModel.events
         }
        
     }
