@@ -90,7 +90,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             events = response.compactMap { $0 }
             events.forEach {
                 let location = Location(name: $0.eventName, coordinate: CLLocationCoordinate2D(latitude:  Double($0.latitude) ?? 0.0,
-                                                                                               longitude: Double($0.longitude) ?? 0.0), eventId: $0.id)
+                                                                                               longitude: Double($0.longitude) ?? 0.0), eventId: $0.id, event: $0)
                 locations.append(location)
                 print(location)
             }

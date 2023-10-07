@@ -12,4 +12,5 @@ struct Location: Identifiable {
     let name: String
     let coordinate: CLLocationCoordinate2D
     let eventId: Int
+    let event:Event
 }
