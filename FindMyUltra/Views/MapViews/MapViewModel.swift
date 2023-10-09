@@ -26,19 +26,21 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published private(set) var errorMessage: String = ""
     @Published var hasError: Bool = false
     @Published var difficultyPicker: Difficulty = .unranked
-    @Published var raceDistance: RaceDistance = .oneHundredPlus
+    @Published var raceDistance: RaceDistance = .showAll
+    @Published var distanceFromMe: DistanceFromMe = .twoHundred
+    @Published var month: Month = .showAll
     
     private let client = Client()
     
     
     func checkIfLocationServicesIsEnabled() {
-            if CLLocationManager.locationServicesEnabled() {
-                self.locationManger = CLLocationManager()
-                self.locationManger!.delegate = self
-            } else {
-                //TODO: Location Alert needed
-            }
-
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManger = CLLocationManager()
+            self.locationManger!.delegate = self
+        } else {
+            //TODO: Location Alert needed
+        }
+        
     }
     private func checkLocationAuthorazaition() {
         guard let locationManger = locationManger else {return}
@@ -70,42 +72,57 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
                 MapViewDO(name: "Datum 3")]
     }
     
-//    var request: URLRequest = {
-//        let urlString = "\(BASE_URL)/events.svc/closestevents?open=1&past=0&lat=34.9243051&lng=-80.7880559&mi=200&mo=12"
-//        let url = URL(string: urlString)!
-//        return URLRequest(url: url)
-//    }()
-
-    func fetchEvents(raceDistance: RaceDistance?, raceDifficulty: Difficulty? ) async {
-        do {
-            let urlString = "\(BASE_URL)/events.svc/closestevents"
-            let url = URL(string: urlString)!
-            var request = URLRequest(url: url)
-            request.url?.append(queryItems: [
-            URLQueryItem(name: "open", value: "1"),
-            URLQueryItem(name: "past", value: "0"),
-            URLQueryItem(name: "lat", value: String(describing: locationManger?.location?.coordinate.latitude)),
-            URLQueryItem(name: "lng", value: String(describing: locationManger?.location?.coordinate.longitude)),
-          
-            URLQueryItem(name: "mi", value: raceDistance?.network ?? "0")
-            
-            
-//            URLQueryItem(name: "mo", value: "12")
-            ])
-            let response = try await client.fetch(type: Events.self, with: request)
-            events = response.compactMap { $0 }
-            events.forEach {
-                let location = Location(name: $0.eventName, coordinate: CLLocationCoordinate2D(latitude:  Double($0.latitude) ?? 0.0,
-                                                                                               longitude: Double($0.longitude) ?? 0.0), eventId: $0.id, event: $0)
-                locations.append(location)
-                print(location)
+    func fetchEvents() async {
+    
+            do {
+               let request = request()
+                let response = try await client.fetch(type: Events.self, with: request)
+                events.removeAll()
+                locations.removeAll()
+                events = response.compactMap { $0 }
+                events.forEach {
+                    let location = Location(name: $0.eventName, coordinate: CLLocationCoordinate2D(latitude:  Double($0.latitude) ?? 0.0, longitude: Double($0.longitude) ?? 0.0), eventId: $0.id, event: $0)
+                    locations.append(location)
+                }
+            } catch {
+                errorMessage = "\((error as! ApiError).customDescription)"
+                hasError = true
             }
-        } catch {
-            errorMessage = "\((error as! ApiError).customDescription)"
-            hasError = true
+    }
+    
+    func request() -> URLRequest {
+        let urlString = "\(BASE_URL)/events.svc/closestevents"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        request.url?.append(queryItems: [
+           URLQueryItem(name: "open", value: "1"),
+           URLQueryItem(name: "past", value: "0")
+           ])
+        if let lat = locationManger?.location?.coordinate.latitude, let lng = locationManger?.location?.coordinate.longitude{
+             request.url?.append(queryItems: [
+                URLQueryItem(name: "lat", value: String(describing: lat)),
+                URLQueryItem(name: "lng", value: String(describing: lng)),
+                URLQueryItem(name: "mi", value:  distanceFromMe.network),
+                URLQueryItem(name: "mo", value: "12")
+                
+            ])
+            if raceDistance != .showAll {
+                let dist = URLQueryItem(name: "dist", value: raceDistance.network)
+                request.url?.append(queryItems: [dist])
+            }
+            if month != .showAll {
+                let m = URLQueryItem(name: "m", value: month.network)
+                request.url?.append(queryItems: [m])
+            }
+            print("REQUEST: \(request)")
+            return request
+        
+            
         }
+        return request
     }
 }
+        
 
 
 struct MapViewDO: Identifiable {

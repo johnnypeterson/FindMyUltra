@@ -23,7 +23,9 @@ struct Home: View {
         }
         .accentColor(.indigo)
         .task {
-            await viewModel.fetchEvents(raceDistance: nil, raceDifficulty: nil)
+           
+                await viewModel.fetchEvents()
+            
         }
         .onAppear{
             viewModel.checkIfLocationServicesIsEnabled()

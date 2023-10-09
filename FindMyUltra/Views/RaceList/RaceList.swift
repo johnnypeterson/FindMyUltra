@@ -55,9 +55,12 @@ struct RaceList: View {
                                 Text(event.eventName)
                                     .fontWeight(.semibold)
                                 Label {
-                                    Text("\(event.distances) - \(event.city), \(event.state)")
+                                    VStack {
+                                        Text("\(event.distances) - \(event.city), \(event.state) - \(event.eventDate)")
+                                    }
                                 } icon: {
                                     Image(systemName: "figure.run")
+                                   
                                 }
                                 .font(.caption)
                             }
@@ -83,10 +86,13 @@ struct RaceList: View {
         }
         .sheet(isPresented: $showAnotherSheet) {
             NavigationView {
-                Text("Filter Shit")
+              FilterView(viewModel: viewModel)
                     .navigationBarItems(trailing: Button("Apply Filters",
                                                          action: {showAnotherSheet.toggle()
-                        //TODO: Recall service
+                        Task{
+                            await
+                            viewModel.fetchEvents()
+                        }
                     }))
             }
         }

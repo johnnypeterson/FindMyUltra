@@ -57,12 +57,12 @@ struct MapView: View {
             }
             .sheet(isPresented: $showAnotherSheet) {
                 NavigationView {
-                    filterView()
+                    FilterView(viewModel: viewModel)
                         .navigationBarItems(trailing: Button("Apply Filters",
                                                              action: {showAnotherSheet.toggle()
                             Task{
                                 await
-                                viewModel.fetchEvents(raceDistance: viewModel.raceDistance, raceDifficulty: viewModel.difficultyPicker)
+                                viewModel.fetchEvents()
                             }
                         }))
                 }
@@ -89,23 +89,6 @@ struct MapView: View {
                 }
         }
     }
-    @ViewBuilder
-    func filterView() -> some View {
-        Form {
-            Picker("Difficulty", selection: $viewModel.difficultyPicker) {
-                    ForEach(Difficulty.allCases) { option in
-                        Text(String(describing: option))
-                            .tag(option)
-                    }
-                }
-            Picker("Distance", selection: $viewModel.raceDistance) {
-                    ForEach(RaceDistance.allCases) { option in
-                        Text(String(describing: option))
-                            .tag(option)
-                    }
-                }
-            }
-        }
 }
 
 #Preview {
