@@ -18,7 +18,7 @@ enum MapDetails {
 final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     var locationManger: CLLocationManager?
     @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
-    
+    @Published var overrideRegion = MKCoordinateRegion()
     @Published var camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan))
     @Published var data: [MapViewDO] = []
     @Published var locations: [Location] = []
@@ -29,6 +29,10 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published var raceDistance: RaceDistance = .showAll
     @Published var distanceFromMe: DistanceFromMe = .twoHundred
     @Published var month: Month = .showAll
+    @Published private(set) var results: Array<AddressResult> = []
+    @Published var searchableText = ""
+    @Published  var overrideAddres: AddressResult?
+    @Published var annotationItems: [AnnotationItem] = []
     
     private let client = Client()
     
@@ -120,6 +124,53 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             
         }
         return request
+    }
+    
+    private lazy var localSearchCompleter: MKLocalSearchCompleter = {
+        let completer = MKLocalSearchCompleter()
+        completer.delegate = self
+        return completer
+    }()
+    
+    func searchAddress(_ searchableText: String) {
+        guard searchableText.isEmpty == false else { return }
+        localSearchCompleter.queryFragment = searchableText
+    }
+    func getPlace(from address: AddressResult) {
+        let request = MKLocalSearch.Request()
+        let title = address.title
+        let subTitle = address.subtitle
+        
+        request.naturalLanguageQuery = subTitle.contains(title)
+        ? subTitle : title + ", " + subTitle
+        
+        Task {
+            let response = try await MKLocalSearch(request: request).start()
+            await MainActor.run {
+                self.annotationItems = response.mapItems.map {
+                    AnnotationItem(
+                        latitude: $0.placemark.coordinate.latitude,
+                        longitude: $0.placemark.coordinate.longitude
+                    )
+                }
+                
+                self.region = response.boundingRegion
+            }
+        }
+    }
+}
+
+extension MapViewModel: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        Task { @MainActor in
+            results = completer.results.map {
+                AddressResult(title: $0.title, subtitle: $0.subtitle)
+            }
+        }
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print(error)
     }
 }
         
