@@ -17,18 +17,21 @@ struct FilterView: View {
                             .tag(option)
                     }
                 }
+            .pickerStyle(.automatic)
             Picker("Distance", selection: $viewModel.raceDistance) {
                     ForEach(RaceDistance.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)
                     }
                 }
+            .pickerStyle(.automatic)
             Picker("Search Distance", selection: $viewModel.distanceFromMe) {
                     ForEach(DistanceFromMe.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)
                     }
                 }
+            .pickerStyle(.automatic)
             }
     }
 }
