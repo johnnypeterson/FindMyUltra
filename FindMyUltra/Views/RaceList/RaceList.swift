@@ -21,7 +21,7 @@ struct RaceList: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             if viewModel.events.isEmpty {
                 ProgressView()
                     .scaleEffect(CGFloat(2.0), anchor: .center)

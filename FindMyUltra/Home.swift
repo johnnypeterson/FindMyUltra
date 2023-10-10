@@ -21,6 +21,14 @@ struct Home: View {
                     Label("List", systemImage: "list.dash")
                 }
         }
+        .alert(isPresented: $viewModel.showAlert) {
+             Alert (title: Text("Location Access is required to find races near you on the Map"),
+                    message: Text("Go to Settings?"),
+                    primaryButton: .default(Text("Settings"), action: {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }),
+                    secondaryButton: .default(Text("Cancel")))
+                }
         .accentColor(.indigo)
         .task {
            

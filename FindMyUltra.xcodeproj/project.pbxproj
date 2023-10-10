@@ -557,10 +557,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FindMyUltra/Preview Content\"";
-				DEVELOPMENT_TEAM = SX4W8Z58WN;
+				DEVELOPMENT_TEAM = 7K2FHX8HPD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindMyUltra/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Find My Ultra";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -568,12 +570,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswift.FindMyUltra;
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswiftapps.FindMyUltra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -589,10 +592,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FindMyUltra/Preview Content\"";
-				DEVELOPMENT_TEAM = SX4W8Z58WN;
+				DEVELOPMENT_TEAM = 7K2FHX8HPD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindMyUltra/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Find My Ultra";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed for showing map with race options";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -600,12 +605,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswift.FindMyUltra;
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswiftapps.FindMyUltra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

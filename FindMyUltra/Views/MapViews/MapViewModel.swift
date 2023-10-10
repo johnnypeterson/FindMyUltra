@@ -29,6 +29,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published var raceDistance: RaceDistance = .showAll
     @Published var distanceFromMe: DistanceFromMe = .twoHundred
     @Published var month: Month = .showAll
+    @Published var showAlert = false
     
     private let client = Client()
     
@@ -49,10 +50,10 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         case .notDetermined:
             locationManger.requestWhenInUseAuthorization()
         case .restricted:
-            //TODO Alert needed
+            showAlert = true
             print("Location is restricted parental conrolls")
         case .denied:
-            //TODO Alert needed
+            showAlert = true
             print("Location is restricted parental conrolls")
         case .authorizedAlways, .authorizedWhenInUse:
             if let location = locationManger.location {

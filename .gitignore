@@ -1,0 +1,8 @@
+*~
+.DS_Store
+*.xcuserstate
+xcuserdata
+MyDarwinV2.xcodeproj/xcshareddata/xcschemes
+*.generated.swift
+workspace.xml
+*.plist
