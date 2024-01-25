@@ -25,7 +25,7 @@ struct FilterView: View {
                     }
                 }
             .pickerStyle(.automatic)
-            Picker("Search Distance", selection: $viewModel.distanceFromMe) {
+            Picker("Search Radius", selection: $viewModel.distanceFromMe) {
                     ForEach(DistanceFromMe.allCases) { option in
                         Text(String(describing: option))
                             .tag(option)
