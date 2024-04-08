@@ -30,6 +30,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published var distanceFromMe: DistanceFromMe = .twoHundred
     @Published var month: Month = .showAll
     @Published var showAlert = false
+    @Published private(set) var results: Array<AddressResult> = []
+    @Published var searchableText = ""
     
     private let client = Client()
     
@@ -121,6 +123,31 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             
         }
         return request
+    }
+    private lazy var localSearchCompleter: MKLocalSearchCompleter = {
+        let completer = MKLocalSearchCompleter()
+        completer.delegate = self
+        return completer
+    }()
+    
+    func searchAddress(_ searchableText: String) {
+        guard searchableText.isEmpty == false else { return }
+        localSearchCompleter.queryFragment = searchableText
+    }
+  
+}
+
+extension MapViewModel: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        Task { @MainActor in
+            results = completer.results.map {
+                AddressResult(title: $0.title, subtitle: $0.subtitle)
+            }
+        }
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print(error)
     }
 }
         
