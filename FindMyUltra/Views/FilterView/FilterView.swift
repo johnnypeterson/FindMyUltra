@@ -11,6 +11,7 @@ struct FilterView: View {
     @ObservedObject var viewModel: MapViewModel
     @FocusState private var isFocusedTextField: Bool
     var backgroundColor: Color = Color.init(uiColor: .systemGray6)
+    @State var selectedAddress: AddressResult?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -38,8 +39,13 @@ struct FilterView: View {
                 }
             List(self.viewModel.results) { address in
                 AddressRow(address: address)
-                    .listRowBackground(backgroundColor)
+               
+                    .listRowBackground(address ==  viewModel.selectedAddress ? Color.purple : nil)
+                    .onTapGesture {
+                        viewModel.selectedAddress = address
+                                  }
             }
+         
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             Form {

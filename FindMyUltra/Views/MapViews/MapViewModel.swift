@@ -18,7 +18,7 @@ enum MapDetails {
 final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     var locationManger: CLLocationManager?
     @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
-    
+    @Published var selectedAddress: AddressResult?
     @Published var camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan))
     @Published var data: [MapViewDO] = []
     @Published var locations: [Location] = []
@@ -32,6 +32,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published var showAlert = false
     @Published private(set) var results: Array<AddressResult> = []
     @Published var searchableText = ""
+    @Published var annotationItems: [AnnotationItem] = []
     
     private let client = Client()
     
@@ -45,10 +46,9 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         }
         
     }
-    private func checkLocationAuthorazaition() {
+     func checkLocationAuthorazaition() {
         guard let locationManger = locationManger else {return}
         switch locationManger.authorizationStatus {
-            
         case .notDetermined:
             locationManger.requestWhenInUseAuthorization()
         case .restricted:
@@ -59,8 +59,14 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             print("Location is restricted parental conrolls")
         case .authorizedAlways, .authorizedWhenInUse:
             if let location = locationManger.location {
-                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
-                camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+                if selectedAddress != nil {
+                    self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+                    
+                } else {
+                    region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
+                    camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+                }
+                
             }
         @unknown default:
             break
@@ -101,26 +107,33 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
            URLQueryItem(name: "open", value: "1"),
            URLQueryItem(name: "past", value: "0")
            ])
-        if let lat = locationManger?.location?.coordinate.latitude, let lng = locationManger?.location?.coordinate.longitude{
-             request.url?.append(queryItems: [
+        if let item = annotationItems.first {
+            request.url?.append(queryItems: [
+                URLQueryItem(name: "lat", value: String(describing: item.latitude)),
+                URLQueryItem(name: "lng", value: String(describing: item.longitude)),
+               URLQueryItem(name: "mi", value:  distanceFromMe.network),
+               URLQueryItem(name: "mo", value: "12")
+               
+           ])
+        } else {
+            if let lat = locationManger?.location?.coordinate.latitude, let lng = locationManger?.location?.coordinate.longitude{
+            request.url?.append(queryItems: [
                 URLQueryItem(name: "lat", value: String(describing: lat)),
                 URLQueryItem(name: "lng", value: String(describing: lng)),
                 URLQueryItem(name: "mi", value:  distanceFromMe.network),
                 URLQueryItem(name: "mo", value: "12")
                 
             ])
-            if raceDistance != .showAll {
-                let dist = URLQueryItem(name: "dist", value: raceDistance.network)
-                request.url?.append(queryItems: [dist])
-            }
-            if month != .showAll {
-                let m = URLQueryItem(name: "m", value: month.network)
-                request.url?.append(queryItems: [m])
-            }
-            print("REQUEST: \(request)")
-            return request
+        }
+        }
         
-            
+        if raceDistance != .showAll {
+            let dist = URLQueryItem(name: "dist", value: raceDistance.network)
+            request.url?.append(queryItems: [dist])
+        }
+        if month != .showAll {
+            let m = URLQueryItem(name: "m", value: month.network)
+            request.url?.append(queryItems: [m])
         }
         return request
     }
@@ -134,6 +147,36 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         guard searchableText.isEmpty == false else { return }
         localSearchCompleter.queryFragment = searchableText
     }
+    func getPlace(from address: AddressResult) {
+       
+        let request = MKLocalSearch.Request()
+        let title = address.title
+        let subTitle = address.subtitle
+        
+        request.naturalLanguageQuery = subTitle.contains(title)
+        ? subTitle : title + ", " + subTitle
+        
+        Task {
+            let response = try await MKLocalSearch(request: request).start()
+            await MainActor.run {
+                self.annotationItems = response.mapItems.map {
+                    AnnotationItem(
+                        latitude: $0.placemark.coordinate.latitude,
+                        longitude: $0.placemark.coordinate.longitude
+                    )
+                }
+                
+                self.region = response.boundingRegion
+                checkLocationAuthorazaition()
+                Task{
+                    await
+                    fetchEvents()
+                }
+               
+            }
+        }
+    }
+
   
 }
 

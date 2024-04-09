@@ -34,6 +34,7 @@
 		B2BFF8292BC458CA00D612DC /* AddressResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF8282BC458CA00D612DC /* AddressResult.swift */; };
 		B2BFF82B2BC4590C00D612DC /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82A2BC4590C00D612DC /* AddressRow.swift */; };
 		B2BFF82E2BC45A2B00D612DC /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82D2BC45A2B00D612DC /* ClearButton.swift */; };
+		B2BFF8302BC45B7A00D612DC /* AnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		B2BFF8282BC458CA00D612DC /* AddressResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResult.swift; sourceTree = "<group>"; };
 		B2BFF82A2BC4590C00D612DC /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
 		B2BFF82D2BC45A2B00D612DC /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				B20AEFA42ACF60B4009FFA2D /* Location.swift */,
 				B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */,
 				B2BFF8282BC458CA00D612DC /* AddressResult.swift */,
+				B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				B20AEFAE2ACF60E1009FFA2D /* Constants.swift in Sources */,
 				B20AEFB22ACF6106009FFA2D /* MapViewModel.swift in Sources */,
 				B2BFF82B2BC4590C00D612DC /* AddressRow.swift in Sources */,
+				B2BFF8302BC45B7A00D612DC /* AnnotationItem.swift in Sources */,
 				B20AEFA82ACF60B4009FFA2D /* Location.swift in Sources */,
 				B2BFF8292BC458CA00D612DC /* AddressResult.swift in Sources */,
 				B20AEFA92ACF60B4009FFA2D /* Event.swift in Sources */,
