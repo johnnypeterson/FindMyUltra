@@ -31,6 +31,10 @@
 		B20AEFCA2AD44A2A009FFA2D /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B20AEFC92AD44A2A009FFA2D /* FirebaseRemoteConfigSwift */; };
 		B20AEFCC2AD44A37009FFA2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B20AEFCB2AD44A37009FFA2D /* GoogleService-Info.plist */; };
 		B20AEFCE2AD45EA0009FFA2D /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20AEFCD2AD45EA0009FFA2D /* FilterView.swift */; };
+		B2BFF8292BC458CA00D612DC /* AddressResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF8282BC458CA00D612DC /* AddressResult.swift */; };
+		B2BFF82B2BC4590C00D612DC /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82A2BC4590C00D612DC /* AddressRow.swift */; };
+		B2BFF82E2BC45A2B00D612DC /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82D2BC45A2B00D612DC /* ClearButton.swift */; };
+		B2BFF8302BC45B7A00D612DC /* AnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +79,10 @@
 		B20AEFC12AD2099F009FFA2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B20AEFCB2AD44A37009FFA2D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B20AEFCD2AD45EA0009FFA2D /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		B2BFF8282BC458CA00D612DC /* AddressResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResult.swift; sourceTree = "<group>"; };
+		B2BFF82A2BC4590C00D612DC /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
+		B2BFF82D2BC45A2B00D612DC /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +192,8 @@
 				B20AEFA52ACF60B4009FFA2D /* Event.swift */,
 				B20AEFA42ACF60B4009FFA2D /* Location.swift */,
 				B20AEFBA2AD057E5009FFA2D /* FilterModel.swift */,
+				B2BFF8282BC458CA00D612DC /* AddressResult.swift */,
+				B2BFF82F2BC45B7A00D612DC /* AnnotationItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +209,7 @@
 		B20AEFAF2ACF60F3009FFA2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B2BFF82C2BC45A1600D612DC /* CustomViews */,
 				B20AEFB92AD05224009FFA2D /* RaceDetails */,
 				B20AEFB82AD05206009FFA2D /* FilterView */,
 				B20AEFB32ACF6164009FFA2D /* RaceList */,
@@ -228,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				B20AEFCD2AD45EA0009FFA2D /* FilterView.swift */,
+				B2BFF82A2BC4590C00D612DC /* AddressRow.swift */,
 			);
 			path = FilterView;
 			sourceTree = "<group>";
@@ -238,6 +250,14 @@
 				B20AEFBF2AD0B813009FFA2D /* RaceDetails.swift */,
 			);
 			path = RaceDetails;
+			sourceTree = "<group>";
+		};
+		B2BFF82C2BC45A1600D612DC /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				B2BFF82D2BC45A2B00D612DC /* ClearButton.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,13 +403,17 @@
 				B20AEFCE2AD45EA0009FFA2D /* FilterView.swift in Sources */,
 				B20AEF9A2ACF6062009FFA2D /* GenericApi.swift in Sources */,
 				B20AEFC02AD0B813009FFA2D /* RaceDetails.swift in Sources */,
+				B2BFF82E2BC45A2B00D612DC /* ClearButton.swift in Sources */,
 				B20AEFB52ACF6183009FFA2D /* MapView.swift in Sources */,
 				B20AEF6D2ACF601D009FFA2D /* Home.swift in Sources */,
 				B20AEF992ACF6062009FFA2D /* ApiError.swift in Sources */,
 				B20AEF6B2ACF601D009FFA2D /* FindMyUltraApp.swift in Sources */,
 				B20AEFAE2ACF60E1009FFA2D /* Constants.swift in Sources */,
 				B20AEFB22ACF6106009FFA2D /* MapViewModel.swift in Sources */,
+				B2BFF82B2BC4590C00D612DC /* AddressRow.swift in Sources */,
+				B2BFF8302BC45B7A00D612DC /* AnnotationItem.swift in Sources */,
 				B20AEFA82ACF60B4009FFA2D /* Location.swift in Sources */,
+				B2BFF8292BC458CA00D612DC /* AddressResult.swift in Sources */,
 				B20AEFA92ACF60B4009FFA2D /* Event.swift in Sources */,
 				B20AEF982ACF6062009FFA2D /* Client.swift in Sources */,
 				B20AEFB72ACF6226009FFA2D /* RaceList.swift in Sources */,
@@ -575,7 +599,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswiftapps.FindMyUltra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -610,7 +634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyswiftapps.FindMyUltra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
