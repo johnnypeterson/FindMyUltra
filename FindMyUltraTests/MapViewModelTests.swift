@@ -24,4 +24,16 @@ final class MapViewModelTests: XCTestCase {
         XCTAssertEqual(value(for: "open"), "1")
         XCTAssertEqual(value(for: "past"), "0")
     }
+
+    func testRequestIncludesDifficulty() {
+        let viewModel = MapViewModel()
+        viewModel.difficulty = .easy
+        let request = viewModel.request()
+        let components = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)
+        let queryItems = components?.queryItems ?? []
+        func value(for name: String) -> String? {
+            return queryItems.first(where: { $0.name == name })?.value
+        }
+        XCTAssertEqual(value(for: "difficulty"), Difficulty.easy.network)
+    }
 }
