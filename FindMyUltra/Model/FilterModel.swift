@@ -51,12 +51,12 @@ enum Difficulty: CaseIterable, Identifiable, CustomStringConvertible {
 
 enum RaceDistance: CaseIterable, Identifiable, CustomStringConvertible {
     case showAll
-    case lessThenTen
+    case lessThanTen
     case tenToTwentySix
-    case twentySixtoForty
+    case twentySixToForty
     case fortyOneToSixty
-    case sixyOneToNintey
-    case NinteyToOneHundred
+    case sixtyOneToNinety
+    case ninetyToOneHundred
     case oneHundredPlus
     
     var id: Self {self}
@@ -64,17 +64,17 @@ enum RaceDistance: CaseIterable, Identifiable, CustomStringConvertible {
         switch self {
         case .showAll:
             return "Show All"
-        case .lessThenTen:
+        case .lessThanTen:
             return "<10 Miles"
         case .tenToTwentySix:
             return "10-26 Miles"
-        case .twentySixtoForty:
+        case .twentySixToForty:
             return "26-40 Miles"
         case .fortyOneToSixty:
             return "41-60 Miles"
-        case .sixyOneToNintey:
+        case .sixtyOneToNinety:
             return "61-90 Miles"
-        case .NinteyToOneHundred:
+        case .ninetyToOneHundred:
             return "91-100 Miles"
         case .oneHundredPlus:
             return ">110 Miles"
@@ -84,17 +84,17 @@ enum RaceDistance: CaseIterable, Identifiable, CustomStringConvertible {
         switch self {
         case .showAll:
             return "0"
-        case .lessThenTen:
+        case .lessThanTen:
             return "1"
         case .tenToTwentySix:
             return "2"
-        case .twentySixtoForty:
+        case .twentySixToForty:
             return "3"
         case .fortyOneToSixty:
             return "4"
-        case .sixyOneToNintey:
+        case .sixtyOneToNinety:
             return "5"
-        case .NinteyToOneHundred:
+        case .ninetyToOneHundred:
             return "6"
         case .oneHundredPlus:
             return "7"
