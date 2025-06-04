@@ -33,4 +33,26 @@ final class FindMyUltraTests: XCTestCase {
         }
     }
 
+    func testRequestIncludesAnnotationQueryItems() throws {
+        let viewModel = MapViewModel()
+        let latitude = 37.0
+        let longitude = -122.0
+        viewModel.annotationItems = [AnnotationItem(latitude: latitude, longitude: longitude)]
+        viewModel.distanceFromMe = .twoHundred
+
+        let request = viewModel.request()
+        guard let url = request.url,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            XCTFail("Missing url or query items")
+            return
+        }
+
+        let queryDictionary = Dictionary(uniqueKeysWithValues: queryItems.map { ($0.name, $0.value) })
+
+        XCTAssertEqual(queryDictionary["lat"], String(describing: latitude))
+        XCTAssertEqual(queryDictionary["lng"], String(describing: longitude))
+        XCTAssertEqual(queryDictionary["mi"], viewModel.distanceFromMe.network)
+    }
+
 }
