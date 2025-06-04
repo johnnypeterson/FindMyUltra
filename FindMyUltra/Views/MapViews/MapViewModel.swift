@@ -53,10 +53,10 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             locationManger.requestWhenInUseAuthorization()
         case .restricted:
             showAlert = true
-            print("Location is restricted parental conrolls")
+            print("Location is restricted parental controls")
         case .denied:
             showAlert = true
-            print("Location is restricted parental conrolls")
+            print("Location is restricted parental controls")
         case .authorizedAlways, .authorizedWhenInUse:
             if let location = locationManger.location {
                 if selectedAddress != nil {
