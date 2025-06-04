@@ -56,7 +56,7 @@ struct RaceList: View {
                                     .font(.headline)
                                     .fontWeight(.semibold)
                                     .lineLimit(1)
-                                Label("\(event.distances) \u00b7 \(event.city), \(event.state) \u00b7 \(event.eventDate)", systemImage: "figure.run")
+                                Label("\(event.distances) \u{00B7} \(event.city), \(event.state) \u{00B7} \(event.eventDate)", systemImage: "figure.run")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
