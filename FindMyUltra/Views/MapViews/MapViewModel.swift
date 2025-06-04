@@ -94,7 +94,11 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
                     locations.append(location)
                 }
             } catch {
-                errorMessage = "\((error as! ApiError).customDescription)"
+                if let apiError = error as? ApiError {
+                    errorMessage = apiError.customDescription
+                } else {
+                    errorMessage = error.localizedDescription
+                }
                 hasError = true
             }
     }
