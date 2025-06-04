@@ -56,6 +56,13 @@ struct FilterView: View {
                     }
                 }
                 .pickerStyle(.automatic)
+                Picker("Difficulty", selection: $viewModel.difficulty) {
+                    ForEach(Difficulty.allCases) { option in
+                        Text(String(describing: option))
+                            .tag(option)
+                    }
+                }
+                .pickerStyle(.automatic)
                 Picker("Distance", selection: $viewModel.raceDistance) {
                     ForEach(RaceDistance.allCases) { option in
                         Text(String(describing: option))

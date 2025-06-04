@@ -25,7 +25,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published private(set) var events: [Event] = []
     @Published private(set) var errorMessage: String = ""
     @Published var hasError: Bool = false
-    @Published var difficultyPicker: Difficulty = .unranked
+    @Published var difficulty: Difficulty = .unranked
     @Published var raceDistance: RaceDistance = .showAll
     @Published var distanceFromMe: DistanceFromMe = .twoHundred
     @Published var month: Month = .showAll
@@ -138,6 +138,10 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         if month != .showAll {
             let m = URLQueryItem(name: "m", value: month.network)
             request.url?.append(queryItems: [m])
+        }
+        if difficulty != .unranked {
+            let diff = URLQueryItem(name: "difficulty", value: difficulty.network)
+            request.url?.append(queryItems: [diff])
         }
         return request
     }
