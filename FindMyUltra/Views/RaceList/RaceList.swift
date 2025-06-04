@@ -51,18 +51,14 @@ struct RaceList: View {
                             }
                             .frame(width: 70, height: 50)
 
-                            VStack(alignment: .leading, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 4) {
                                 Text(event.eventName)
+                                    .font(.headline)
                                     .fontWeight(.semibold)
-                                Label {
-                                    VStack {
-                                        Text("\(event.distances) - \(event.city), \(event.state) - \(event.eventDate)")
-                                    }
-                                } icon: {
-                                    Image(systemName: "figure.run")
-
-                                }
-                                .font(.caption)
+                                    .lineLimit(1)
+                                Label("\(event.distances) \u00b7 \(event.city), \(event.state) \u00b7 \(event.eventDate)", systemImage: "figure.run")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }

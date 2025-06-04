@@ -30,12 +30,19 @@ struct RaceDetails: View {
                 }
                    
             }
-      
-//            .frame(maxWidth: .infinity, maxHeight: 300, alignment: .top)
-       
-            Text("Distances: \(event.distances)")
-            Text("City: \(event.city)")
-            Text("Date: \(event.eventDate)")
+
+            Text(event.eventName)
+                .font(.title2)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+
+            VStack(spacing: 4) {
+                Text("Distances: \(event.distances)")
+                Text("City: \(event.city)")
+                Text("Date: \(event.eventDate)")
+            }
+            .font(.subheadline)
        
             Button("Directions") {
                 let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)")
@@ -55,7 +62,6 @@ struct RaceDetails: View {
             
            
         }
-        .font(.title3)
         .navigationTitle(event.eventName)
         
         
