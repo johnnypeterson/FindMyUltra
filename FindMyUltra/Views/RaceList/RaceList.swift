@@ -60,13 +60,19 @@ struct RaceList: View {
                                     }
                                 } icon: {
                                     Image(systemName: "figure.run")
-                                   
+
                                 }
                                 .font(.caption)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(.secondarySystemBackground))
+                        )
                     }
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 .searchable(text: $searchText)

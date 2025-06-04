@@ -37,38 +37,20 @@ struct RaceDetails: View {
             Text("City: \(event.city)")
             Text("Date: \(event.eventDate)")
        
-            Button {
+            Button("Directions") {
                 let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)")
                 if UIApplication.shared.canOpenURL(url!) {
                       UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                 }
-            } label : {
-                
-                Text("Directions")
-                    .foregroundColor(.white)
-                
-                
             }
-            .frame(maxWidth: 150)
-            .padding()
-               .background(.indigo)
-               .clipShape(Capsule())
-               .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .tint(.indigo)
               
-            Button {
+            Button("Register") {
                 openURL(URL(string: "https://ultrasignup.com/register.aspx?eid=\(event.id)")!)
-            } label : {
-                
-                Text("Register")
-                    .foregroundColor(.white)
-                
-                
             }
-            .frame(maxWidth: 150)
-            .padding()
-               .background(.indigo)
-               .clipShape(Capsule())
-               .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .tint(.indigo)
             
             
            
