@@ -95,13 +95,17 @@ struct MapView: View {
                         showAnotherSheet.toggle()
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                            .font(.largeTitle)
+                            .font(.system(size: 40))
                             .foregroundColor(Color.indigo)
-                        
+                            .padding()
+                            .background(.regularMaterial)
+                            .clipShape(Circle())
+
                     }
                     .padding()
                     .padding(.bottom, 100)
-                    
+                    .shadow(radius: 4)
+
                 })
                 .mapStyle(.hybrid)
                 .ignoresSafeArea()
