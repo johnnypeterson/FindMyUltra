@@ -42,11 +42,11 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             self.locationManger = CLLocationManager()
             self.locationManger!.delegate = self
         } else {
-            //TODO: Location Alert needed
+            showAlert = true
         }
-        
+
     }
-     func checkLocationAuthorazaition() {
+    func checkLocationAuthorazaition() {
         guard let locationManger = locationManger else {return}
         switch locationManger.authorizationStatus {
         case .notDetermined:
@@ -58,22 +58,24 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             showAlert = true
             print("Location is restricted parental controls")
         case .authorizedAlways, .authorizedWhenInUse:
-            if let location = locationManger.location {
-                if selectedAddress != nil {
-                    self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
-                    
-                } else {
-                    region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
-                    camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
-                }
-                
-            }
+            locationManger.startUpdatingLocation()
         @unknown default:
             break
         }
     }
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorazaition()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        if selectedAddress != nil {
+            camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+        } else {
+            region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
+            camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+        }
+        manager.stopUpdatingLocation()
     }
     func fetch() {
         data = [MapViewDO(name: "Datum 1"),
@@ -115,20 +117,18 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             request.url?.append(queryItems: [
                 URLQueryItem(name: "lat", value: String(describing: item.latitude)),
                 URLQueryItem(name: "lng", value: String(describing: item.longitude)),
-               URLQueryItem(name: "mi", value:  distanceFromMe.network),
-               URLQueryItem(name: "mo", value: "12")
-               
-           ])
-        } else {
-            if let lat = locationManger?.location?.coordinate.latitude, let lng = locationManger?.location?.coordinate.longitude{
-            request.url?.append(queryItems: [
-                URLQueryItem(name: "lat", value: String(describing: lat)),
-                URLQueryItem(name: "lng", value: String(describing: lng)),
                 URLQueryItem(name: "mi", value:  distanceFromMe.network),
                 URLQueryItem(name: "mo", value: "12")
-                
+
+           ])
+        } else {
+            request.url?.append(queryItems: [
+                URLQueryItem(name: "lat", value: String(describing: region.center.latitude)),
+                URLQueryItem(name: "lng", value: String(describing: region.center.longitude)),
+                URLQueryItem(name: "mi", value:  distanceFromMe.network),
+                URLQueryItem(name: "mo", value: "12")
+
             ])
-        }
         }
         
         if raceDistance != .showAll {
