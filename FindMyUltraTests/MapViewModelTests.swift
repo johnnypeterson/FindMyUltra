@@ -19,7 +19,7 @@ final class MapViewModelTests: XCTestCase {
         }
         XCTAssertEqual(value(for: "lat"), "1.0")
         XCTAssertEqual(value(for: "lng"), "2.0")
-        XCTAssertEqual(value(for: "mi"), viewModel.distanceFromMe.network)
+        XCTAssertEqual(value(for: "mi"), viewModel.searchRadius.network)
         XCTAssertEqual(value(for: "mo"), "12")
         XCTAssertEqual(value(for: "open"), "1")
         XCTAssertEqual(value(for: "past"), "0")

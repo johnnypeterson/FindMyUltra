@@ -38,7 +38,7 @@ final class FindMyUltraTests: XCTestCase {
         let latitude = 37.0
         let longitude = -122.0
         viewModel.annotationItems = [AnnotationItem(latitude: latitude, longitude: longitude)]
-        viewModel.distanceFromMe = .twoHundred
+        viewModel.searchRadius = .twoHundred
 
         let request = viewModel.request()
         guard let url = request.url,
@@ -52,7 +52,7 @@ final class FindMyUltraTests: XCTestCase {
 
         XCTAssertEqual(queryDictionary["lat"], String(describing: latitude))
         XCTAssertEqual(queryDictionary["lng"], String(describing: longitude))
-        XCTAssertEqual(queryDictionary["mi"], viewModel.distanceFromMe.network)
+        XCTAssertEqual(queryDictionary["mi"], viewModel.searchRadius.network)
     }
 
 }
