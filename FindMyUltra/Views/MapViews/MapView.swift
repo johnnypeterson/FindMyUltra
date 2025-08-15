@@ -79,15 +79,18 @@ struct MapView: View {
                     }
                 }
                 .sheet(isPresented: $showAnotherSheet) {
-                    NavigationView {
+                    NavigationStack {
                         FilterView(viewModel: viewModel)
-                            .navigationBarItems(trailing: Button("Apply Filters",
-                                                                 action: {showAnotherSheet.toggle()
-                                if let address = viewModel.selectedAddress {
-                                    viewModel.getPlace(from: address)
+                            .toolbar {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button("Apply Filters", action: {
+                                        showAnotherSheet.toggle()
+                                        if let address = viewModel.selectedAddress {
+                                            viewModel.getPlace(from: address)
+                                        }
+                                    })
                                 }
-                            
-                            }))
+                            }
                     }
                 }
                 .overlay(alignment: .bottomTrailing, content: {

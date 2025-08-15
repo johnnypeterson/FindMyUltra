@@ -87,15 +87,18 @@ struct RaceList: View {
             
         }
         .sheet(isPresented: $showAnotherSheet) {
-            NavigationView {
-              FilterView(viewModel: viewModel)
-                    .navigationBarItems(trailing: Button("Apply Filters",
-                                                         action: {showAnotherSheet.toggle()
-                        Task{
-                            await
-                            viewModel.fetchEvents()
+            NavigationStack {
+                FilterView(viewModel: viewModel)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Apply Filters", action: {
+                                showAnotherSheet.toggle()
+                                Task {
+                                    await viewModel.fetchEvents()
+                                }
+                            })
                         }
-                    }))
+                    }
             }
         }
        
