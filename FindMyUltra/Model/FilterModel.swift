@@ -102,7 +102,12 @@ enum RaceDistance: CaseIterable, Identifiable, CustomStringConvertible {
     }
 }
 
-enum DistanceFromMe: CaseIterable, Identifiable, CustomStringConvertible {
+/// Represents the radius, in miles, used when searching for races.
+///
+/// This was previously named `DistanceFromMe` but now reflects that the
+/// search can originate from any point, not just the user's current
+/// location.
+enum SearchRadius: CaseIterable, Identifiable, CustomStringConvertible {
     case twentyFive
     case fiftyMiles
     case oneHundred
@@ -131,9 +136,10 @@ enum DistanceFromMe: CaseIterable, Identifiable, CustomStringConvertible {
             return "500 Miles"
         }
     }
+    /// String representation expected by the backend when specifying the
+    /// radius in miles.
     var network: String {
         switch self {
-        
         case .twentyFive:
             return "25"
         case .fiftyMiles:

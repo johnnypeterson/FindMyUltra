@@ -27,7 +27,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     @Published var hasError: Bool = false
     @Published var difficulty: Difficulty = .unranked
     @Published var raceDistance: RaceDistance = .showAll
-    @Published var distanceFromMe: DistanceFromMe = .twoHundred
+    /// Selected radius for searches around the chosen location.
+    @Published var searchRadius: SearchRadius = .twoHundred
     @Published var month: Month = .showAll
     @Published var showAlert = false
     @Published private(set) var results: Array<AddressResult> = []
@@ -117,7 +118,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             request.url?.append(queryItems: [
                 URLQueryItem(name: "lat", value: String(describing: item.latitude)),
                 URLQueryItem(name: "lng", value: String(describing: item.longitude)),
-                URLQueryItem(name: "mi", value:  distanceFromMe.network),
+                URLQueryItem(name: "mi", value:  searchRadius.network),
                 URLQueryItem(name: "mo", value: "12")
 
            ])
@@ -125,7 +126,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             request.url?.append(queryItems: [
                 URLQueryItem(name: "lat", value: String(describing: region.center.latitude)),
                 URLQueryItem(name: "lng", value: String(describing: region.center.longitude)),
-                URLQueryItem(name: "mi", value:  distanceFromMe.network),
+                URLQueryItem(name: "mi", value:  searchRadius.network),
                 URLQueryItem(name: "mo", value: "12")
 
             ])
