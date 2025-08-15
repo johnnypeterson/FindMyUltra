@@ -64,19 +64,23 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             break
         }
     }
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorazaition()
+    nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        Task { @MainActor in
+            self.checkLocationAuthorazaition()
+        }
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        if selectedAddress != nil {
-            camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
-        } else {
-            region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
-            camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        Task { @MainActor in
+            guard let location = locations.last else { return }
+            if self.selectedAddress != nil {
+                self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: self.region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+            } else {
+                self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
+                self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+            }
+            self.locationManger?.stopUpdatingLocation()
         }
-        manager.stopUpdatingLocation()
     }
     func fetch() {
         data = [MapViewDO(name: "Datum 1"),
@@ -190,15 +194,15 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
 }
 
 extension MapViewModel: MKLocalSearchCompleterDelegate {
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         Task { @MainActor in
-            results = completer.results.map {
+            self.results = completer.results.map {
                 AddressResult(title: $0.title, subtitle: $0.subtitle)
             }
         }
     }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+
+    nonisolated func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print(error)
     }
 }
