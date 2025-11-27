@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     @StateObject private var viewModel = MapViewModel()
+    @Environment(\.openURL) private var openURL
     var body: some View {
         TabView {
             MapView(viewModel: viewModel)
@@ -22,13 +23,17 @@ struct Home: View {
                 }
         }
         .alert(isPresented: $viewModel.showAlert) {
-             Alert (title: Text("Location Access is required to find races near you on the Map"),
-                    message: Text("Go to Settings?"),
-                    primaryButton: .default(Text("Settings"), action: {
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                    }),
-                    secondaryButton: .default(Text("Cancel")))
-                }
+            Alert(
+                title: Text("Location Access is required to find races near you on the Map"),
+                message: Text("Go to Settings?"),
+                primaryButton: .default(Text("Settings"), action: {
+                    if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(settingsURL)
+                    }
+                }),
+                secondaryButton: .default(Text("Cancel"))
+            )
+        }
         .accentColor(.indigo)
         .task {
            

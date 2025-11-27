@@ -7,7 +7,6 @@
 
 import Foundation
 import MapKit
-import _MapKit_SwiftUI
 
 enum MapDetails {
     static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.8911054)
