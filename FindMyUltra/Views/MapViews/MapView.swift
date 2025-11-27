@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import _MapKit_SwiftUI
+import MapKit
 
 struct MapView: View {
    
