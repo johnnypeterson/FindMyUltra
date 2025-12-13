@@ -7,7 +7,6 @@
 
 import Foundation
 import MapKit
-import _MapKit_SwiftUI
 
 enum MapDetails {
     static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.8911054)
@@ -19,7 +18,6 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
     var locationManger: CLLocationManager?
     @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
     @Published var selectedAddress: AddressResult?
-    @Published var camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan))
     @Published var data: [MapViewDO] = []
     @Published var locations: [Location] = []
     @Published private(set) var events: [Event] = []
@@ -74,10 +72,9 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         Task { @MainActor in
             guard let location = locations.last else { return }
             if self.selectedAddress != nil {
-                self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: self.region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
+                self.region = MKCoordinateRegion(center: self.region.center, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
             } else {
                 self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
-                self.camameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05)))
             }
             self.locationManger?.stopUpdatingLocation()
         }

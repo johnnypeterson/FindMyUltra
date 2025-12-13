@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import _MapKit_SwiftUI
+import MapKit
 
 struct MapView: View {
    
@@ -24,14 +24,21 @@ struct MapView: View {
         }
     }
     @State var address: AddressResult?
+
+    private var annotations: [CombinedAnnotation] {
+        let eventAnnotations = viewModel.locations.map { CombinedAnnotation.event($0) }
+        let homeAnnotations = viewModel.annotationItems.map { CombinedAnnotation.home($0) }
+        return eventAnnotations + homeAnnotations
+    }
     
     
     var body: some View {
         NavigationStack {
-           
-                Map(position: $viewModel.camameraPosition) {
-                    ForEach(viewModel.locations,id: \.id) { location in
-                        Annotation(location.name, coordinate: location.coordinate) {
+
+                Map(coordinateRegion: $viewModel.region, annotationItems: annotations) { annotation in
+                    MapAnnotation(coordinate: annotation.coordinate) {
+                        switch annotation {
+                        case .event(let location):
                             ZStack {
                                 Circle()
                                     .foregroundStyle(.orange.opacity(0.5))
@@ -46,11 +53,8 @@ struct MapView: View {
                                         showDetailsSheet.toggle()
                                     }
                             }
-                        }
-                        .annotationTitles(.visible)
-                    }
-                    ForEach(viewModel.annotationItems,id: \.id) { item in
-                        Annotation("Home", coordinate: item.coordinate) {
+                            .accessibilityLabel(location.name)
+                        case .home:
                             ZStack {
                                 Circle()
                                     .foregroundStyle(.purple.opacity(0.5))
@@ -60,10 +64,10 @@ struct MapView: View {
                                     .foregroundStyle(.white)
                                     .background(Color.purple)
                                     .clipShape(Circle())
-                                    }
                             }
+                            .accessibilityLabel("Home")
                         }
-                    .annotationTitles(.visible)
+                    }
                 }
                 
 
@@ -119,6 +123,29 @@ struct MapView: View {
                 }
               
             
+        }
+    }
+}
+
+private enum CombinedAnnotation: Identifiable {
+    case event(Location)
+    case home(AnnotationItem)
+
+    var id: UUID {
+        switch self {
+        case .event(let location):
+            return location.id
+        case .home(let annotationItem):
+            return annotationItem.id
+        }
+    }
+
+    var coordinate: CLLocationCoordinate2D {
+        switch self {
+        case .event(let location):
+            return location.coordinate
+        case .home(let annotationItem):
+            return annotationItem.coordinate
         }
     }
 }
