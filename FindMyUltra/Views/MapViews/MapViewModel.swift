@@ -77,6 +77,7 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
                 self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
             }
             self.locationManger?.stopUpdatingLocation()
+            await self.fetchEvents()
         }
     }
     func fetch() {
@@ -210,3 +211,4 @@ struct MapViewDO: Identifiable {
     let id = UUID()
     var name: String
 }
+

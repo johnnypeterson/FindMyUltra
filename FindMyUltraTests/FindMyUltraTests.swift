@@ -55,4 +55,30 @@ final class FindMyUltraTests: XCTestCase {
         XCTAssertEqual(queryDictionary["mi"], viewModel.searchRadius.network)
     }
 
+    /// Test that the request uses the region's center coordinate after a location update, 
+    /// instead of the default starting location.
+    func testRequestUsesRegionCenterAfterLocationUpdate() throws {
+        let viewModel = MapViewModel()
+        let updatedLatitude = 34.0
+        let updatedLongitude = -81.0
+        viewModel.region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: updatedLatitude, longitude: updatedLongitude),
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+        viewModel.searchRadius = .twoHundred
+
+        let request = viewModel.request()
+        guard let url = request.url,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            XCTFail("Missing url or query items")
+            return
+        }
+
+        let queryDictionary = Dictionary(uniqueKeysWithValues: queryItems.map { ($0.name, $0.value) })
+
+        XCTAssertEqual(queryDictionary["lat"], String(describing: updatedLatitude))
+        XCTAssertEqual(queryDictionary["lng"], String(describing: updatedLongitude))
+    }
+
 }
