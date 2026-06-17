@@ -9,13 +9,12 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-   
-    @ObservedObject var viewModel: MapViewModel
-    @Environment(\.openURL) var openURL
+
+    @Bindable var viewModel: MapViewModel
+    @Environment(\.openURL) private var openURL
     @State private var searchText = ""
-    @State var showAnotherSheet: Bool = false
-    @State var showDetailsSheet: Bool = false
-    @State var selectedEvent:Event?
+    @State private var isShowingFilters = false
+    @State private var selectedEvent: Event?
     var searchResults: [Event] {
         if searchText.isEmpty {
             return viewModel.events
@@ -30,65 +29,64 @@ struct MapView: View {
         let homeAnnotations = viewModel.annotationItems.map { CombinedAnnotation.home($0) }
         return eventAnnotations + homeAnnotations
     }
-    
-    
+
     var body: some View {
         NavigationStack {
-
-                Map(coordinateRegion: $viewModel.region, annotationItems: annotations) { annotation in
-                    MapAnnotation(coordinate: annotation.coordinate) {
+                Map(position: $viewModel.cameraPosition) {
+                    ForEach(annotations) { annotation in
                         switch annotation {
                         case .event(let location):
-                            ZStack {
-                                Circle()
-                                    .foregroundStyle(.orange.opacity(0.5))
-                                    .frame(width: 80, height: 80)
-                                Image(systemName: "figure.run.circle")
-                                    .padding()
-                                    .foregroundStyle(.white)
-                                    .background(Color.orange)
-                                    .clipShape(Circle())
-                                    .onTapGesture{
-                                        selectedEvent = location.event
-                                        showDetailsSheet.toggle()
-                                    }
+                            Annotation(location.name, coordinate: annotation.coordinate) {
+                                ZStack {
+                                    Circle()
+                                        .foregroundStyle(.orange.opacity(0.5))
+                                        .frame(width: 80, height: 80)
+                                    Image(systemName: "figure.run.circle")
+                                        .padding()
+                                        .foregroundStyle(.white)
+                                        .background(Color.orange)
+                                        .clipShape(Circle())
+                                }
+                                .onTapGesture {
+                                    selectedEvent = location.event
+                                }
+                                .accessibilityLabel(location.name)
                             }
-                            .accessibilityLabel(location.name)
                         case .home:
-                            ZStack {
-                                Circle()
-                                    .foregroundStyle(.purple.opacity(0.5))
-                                    .frame(width: 60, height: 60)
-                                Image(systemName: "house.circle.fill")
-                                    .padding()
-                                    .foregroundStyle(.white)
-                                    .background(Color.purple)
-                                    .clipShape(Circle())
+                            Annotation("Home", coordinate: annotation.coordinate) {
+                                ZStack {
+                                    Circle()
+                                        .foregroundStyle(.purple.opacity(0.5))
+                                        .frame(width: 60, height: 60)
+                                    Image(systemName: "house.circle.fill")
+                                        .padding()
+                                        .foregroundStyle(.white)
+                                        .background(Color.purple)
+                                        .clipShape(Circle())
+                                }
+                                .accessibilityLabel("Home")
                             }
-                            .accessibilityLabel("Home")
                         }
                     }
                 }
-                
-
-                
-                .sheet(isPresented: $showDetailsSheet) {
-                    if let event = selectedEvent {
-                        VStack{
-                            Text(event.eventName)
-                                .bold()
-                                .font(.title)
-                            RaceDetails(event: event)
-                        }
+                .onMapCameraChange { context in
+                    viewModel.region = context.region
+                }
+                .sheet(item: $selectedEvent) { event in
+                    VStack {
+                        Text(event.eventName)
+                            .bold()
+                            .font(.title)
+                        RaceDetails(event: event)
                     }
                 }
-                .sheet(isPresented: $showAnotherSheet) {
+                .sheet(isPresented: $isShowingFilters) {
                     NavigationStack {
                         FilterView(viewModel: viewModel)
                             .toolbar {
                                 ToolbarItem(placement: .topBarTrailing) {
                                     Button("Apply Filters", action: {
-                                        showAnotherSheet.toggle()
+                                        isShowingFilters.toggle()
                                         if let address = viewModel.selectedAddress {
                                             viewModel.getPlace(from: address)
                                         }
@@ -99,7 +97,7 @@ struct MapView: View {
                 }
                 .overlay(alignment: .bottomTrailing, content: {
                     Button {
-                        showAnotherSheet.toggle()
+                        isShowingFilters.toggle()
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill")
                             .font(.system(size: 40))
@@ -154,7 +152,6 @@ private enum CombinedAnnotation: Identifiable {
     MapView(viewModel: MapViewModel())
         
 }
-
 
 
 

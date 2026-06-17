@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RaceDetails: View {
-    var event:Event
-    @Environment(\.openURL) var openURL
+    var event: Event
+    @Environment(\.openURL) private var openURL
     var body: some View {
         VStack(alignment: .center, spacing: 15) {
             AsyncImage(url: URL(string: "https://s3.amazonaws.com/img.ultrasignup.com/event/banner/\(event.bannerID).jpg")) { phase in
@@ -45,16 +45,17 @@ struct RaceDetails: View {
             .font(.subheadline)
        
             Button("Directions") {
-                let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)")
-                if UIApplication.shared.canOpenURL(url!) {
-                      UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                if let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)") {
+                    openURL(url)
                 }
             }
             .buttonStyle(.borderedProminent)
             .tint(.indigo)
               
             Button("Register") {
-                openURL(URL(string: "https://ultrasignup.com/register.aspx?eid=\(event.id)")!)
+                if let url = URL(string: "https://ultrasignup.com/register.aspx?eid=\(event.id)") {
+                    openURL(url)
+                }
             }
             .buttonStyle(.borderedProminent)
             .tint(.indigo)

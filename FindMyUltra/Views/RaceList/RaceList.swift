@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RaceList: View {
-    @Environment(\.openURL) var openURL
-    @ObservedObject var viewModel:MapViewModel
+    @Environment(\.openURL) private var openURL
+    @Bindable var viewModel: MapViewModel
     @State private var searchText = ""
-    @State var showAnotherSheet: Bool = false
+    @State private var isShowingFilters = false
     var searchResults: [Event] {
         if searchText.isEmpty {
             return viewModel.events
@@ -75,7 +75,7 @@ struct RaceList: View {
                 .navigationTitle("Race List")
                 .toolbar {
                     Button {
-                        showAnotherSheet.toggle()
+                        isShowingFilters.toggle()
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill")
                             .font(.title2)
@@ -86,13 +86,13 @@ struct RaceList: View {
             }
             
         }
-        .sheet(isPresented: $showAnotherSheet) {
+        .sheet(isPresented: $isShowingFilters) {
             NavigationStack {
                 FilterView(viewModel: viewModel)
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button("Apply Filters", action: {
-                                showAnotherSheet.toggle()
+                                isShowingFilters.toggle()
                                 Task {
                                     await viewModel.fetchEvents()
                                 }
@@ -112,4 +112,3 @@ struct RaceList: View {
 
 
   
-

@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import Observation
 
 enum MapDetails {
     static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.8911054)
@@ -14,42 +15,51 @@ enum MapDetails {
 }
 
 @MainActor
-final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
-    var locationManger: CLLocationManager?
-    @Published var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
-    @Published var selectedAddress: AddressResult?
-    @Published var data: [MapViewDO] = []
-    @Published var locations: [Location] = []
-    @Published private(set) var events: [Event] = []
-    @Published private(set) var errorMessage: String = ""
-    @Published var hasError: Bool = false
-    @Published var difficulty: Difficulty = .unranked
-    @Published var raceDistance: RaceDistance = .showAll
+@Observable
+final class MapViewModel: NSObject, CLLocationManagerDelegate {
+    @ObservationIgnored private var locationManager: CLLocationManager?
+    @ObservationIgnored private let client = Client()
+    @ObservationIgnored private lazy var localSearchCompleter: MKLocalSearchCompleter = {
+        let completer = MKLocalSearchCompleter()
+        completer.delegate = self
+        return completer
+    }()
+
+    var region = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
+    var cameraPosition: MapCameraPosition = .region(
+        MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
+    )
+    var selectedAddress: AddressResult?
+    var data: [MapViewDO] = []
+    var locations: [Location] = []
+    private(set) var events: [Event] = []
+    private(set) var errorMessage: String = ""
+    var hasError: Bool = false
+    var difficulty: Difficulty = .unranked
+    var raceDistance: RaceDistance = .showAll
     /// Selected radius for searches around the chosen location.
-    @Published var searchRadius: SearchRadius = .twoHundred
-    @Published var month: Month = .showAll
-    @Published var showAlert = false
-    @Published private(set) var results: Array<AddressResult> = []
-    @Published var searchableText = ""
-    @Published var annotationItems: [AnnotationItem] = []
-    
-    private let client = Client()
-    
+    var searchRadius: SearchRadius = .twoHundred
+    var month: Month = .showAll
+    var showAlert = false
+    private(set) var results: [AddressResult] = []
+    var searchableText = ""
+    var annotationItems: [AnnotationItem] = []
     
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
-            self.locationManger = CLLocationManager()
-            self.locationManger!.delegate = self
+            let manager = CLLocationManager()
+            manager.delegate = self
+            locationManager = manager
         } else {
             showAlert = true
         }
 
     }
-    func checkLocationAuthorazaition() {
-        guard let locationManger = locationManger else {return}
-        switch locationManger.authorizationStatus {
+    func checkLocationAuthorization() {
+        guard let locationManager else { return }
+        switch locationManager.authorizationStatus {
         case .notDetermined:
-            locationManger.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         case .restricted:
             showAlert = true
             print("Location is restricted parental controls")
@@ -57,14 +67,14 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             showAlert = true
             print("Location is restricted parental controls")
         case .authorizedAlways, .authorizedWhenInUse:
-            locationManger.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         @unknown default:
             break
         }
     }
     nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         Task { @MainActor in
-            self.checkLocationAuthorazaition()
+            self.checkLocationAuthorization()
         }
     }
 
@@ -76,7 +86,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             } else {
                 self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.05, longitudeDelta: 1.05))
             }
-            self.locationManger?.stopUpdatingLocation()
+            self.cameraPosition = .region(self.region)
+            self.locationManager?.stopUpdatingLocation()
             await self.fetchEvents()
         }
     }
@@ -91,12 +102,9 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
             do {
                let request = request()
                 let response = try await client.fetch(type: Events.self, with: request)
-                events.removeAll()
-                locations.removeAll()
                 events = response.compactMap { $0 }
-                events.forEach {
-                    let location = Location(name: $0.eventName, coordinate: CLLocationCoordinate2D(latitude:  Double($0.latitude) ?? 0.0, longitude: Double($0.longitude) ?? 0.0), eventId: $0.id, event: $0)
-                    locations.append(location)
+                locations = events.map {
+                    Location(name: $0.eventName, coordinate: CLLocationCoordinate2D(latitude: Double($0.latitude) ?? 0.0, longitude: Double($0.longitude) ?? 0.0), eventId: $0.id, event: $0)
                 }
             } catch {
                 if let apiError = error as? ApiError {
@@ -148,12 +156,6 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         }
         return request
     }
-    private lazy var localSearchCompleter: MKLocalSearchCompleter = {
-        let completer = MKLocalSearchCompleter()
-        completer.delegate = self
-        return completer
-    }()
-    
     func searchAddress(_ searchableText: String) {
         guard searchableText.isEmpty == false else { return }
         localSearchCompleter.queryFragment = searchableText
@@ -168,8 +170,8 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
         ? subTitle : title + ", " + subTitle
         
         Task {
-            let response = try await MKLocalSearch(request: request).start()
-            await MainActor.run {
+            do {
+                let response = try await MKLocalSearch(request: request).start()
                 self.annotationItems = response.mapItems.map {
                     AnnotationItem(
                         latitude: $0.placemark.coordinate.latitude,
@@ -178,12 +180,12 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate,ObservableObject {
                 }
                 
                 self.region = response.boundingRegion
-                checkLocationAuthorazaition()
-                Task{
-                    await
-                    fetchEvents()
-                }
-               
+                self.cameraPosition = .region(response.boundingRegion)
+                checkLocationAuthorization()
+                await fetchEvents()
+            } catch {
+                errorMessage = error.localizedDescription
+                hasError = true
             }
         }
     }
@@ -211,4 +213,3 @@ struct MapViewDO: Identifiable {
     let id = UUID()
     var name: String
 }
-

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct FilterView: View {
-    @ObservedObject var viewModel: MapViewModel
+    @Bindable var viewModel: MapViewModel
     @FocusState private var isFocusedTextField: Bool
     var backgroundColor: Color = Color.init(uiColor: .systemGray6)
-    @State var selectedAddress: AddressResult?
+    @State private var selectedAddress: AddressResult?
+    @State private var searchTask: Task<Void, Never>?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -20,13 +21,15 @@ struct FilterView: View {
                 .autocorrectionDisabled()
                 .focused($isFocusedTextField)
                 .font(.title)
-                .onReceive(
-                    viewModel.$searchableText.debounce(
-                        for: .seconds(1),
-                        scheduler: DispatchQueue.main
-                    )
-                ) {
-                    viewModel.searchAddress($0)
+                .onChange(of: viewModel.searchableText) { _, text in
+                    searchTask?.cancel()
+                    searchTask = Task {
+                        try? await Task.sleep(for: .seconds(1))
+                        guard !Task.isCancelled else { return }
+                        await MainActor.run {
+                            viewModel.searchAddress(text)
+                        }
+                    }
                 }
                 .background(Color.init(uiColor: .systemBackground))
                 .overlay {
@@ -37,7 +40,10 @@ struct FilterView: View {
                 .onAppear {
                     isFocusedTextField = true
                 }
-            List(self.viewModel.results) { address in
+                .onDisappear {
+                    searchTask?.cancel()
+                }
+            List(viewModel.results) { address in
                 AddressRow(address: address)
                
                     .listRowBackground(address ==  viewModel.selectedAddress ? Color.purple : nil)

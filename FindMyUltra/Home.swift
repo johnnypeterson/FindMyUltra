@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct Home: View {
-    @StateObject private var viewModel = MapViewModel()
+    @State private var viewModel = MapViewModel()
     @Environment(\.openURL) private var openURL
+
     var body: some View {
         TabView {
             MapView(viewModel: viewModel)
@@ -34,18 +35,13 @@ struct Home: View {
                 secondaryButton: .default(Text("Cancel"))
             )
         }
-        .accentColor(.indigo)
+        .tint(.indigo)
         .task {
-           
-                await viewModel.fetchEvents()
-            
+            await viewModel.fetchEvents()
         }
-        .onAppear{
+        .onAppear {
             viewModel.checkIfLocationServicesIsEnabled()
-            
-            
         }
-        
     }
 }
 
