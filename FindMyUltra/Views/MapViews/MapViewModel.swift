@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 import Observation
+import SwiftUI
 
 enum MapDetails {
     static let startingLocation = CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.8911054)
@@ -195,10 +196,12 @@ final class MapViewModel: NSObject, CLLocationManagerDelegate {
 
 extension MapViewModel: MKLocalSearchCompleterDelegate {
     nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        let results = completer.results.map {
+            AddressResult(title: $0.title, subtitle: $0.subtitle)
+        }
+
         Task { @MainActor in
-            self.results = completer.results.map {
-                AddressResult(title: $0.title, subtitle: $0.subtitle)
-            }
+            self.results = results
         }
     }
 

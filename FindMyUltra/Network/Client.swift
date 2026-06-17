@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Client: GenericApi {
+final class Client: GenericApi, @unchecked Sendable {
 
     let session: URLSession
 

@@ -1,6 +1,7 @@
 import XCTest
 @testable import FindMyUltra
 
+@MainActor
 final class MapViewModelTests: XCTestCase {
     func testFetchAddsThreeItems() {
         let viewModel = MapViewModel()

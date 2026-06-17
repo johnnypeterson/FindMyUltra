@@ -6,8 +6,10 @@
 //
 
 import XCTest
+import MapKit
 @testable import FindMyUltra
 
+@MainActor
 final class FindMyUltraTests: XCTestCase {
 
     override func setUpWithError() throws {
