@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct RaceDetails: View {
     var event: Event
     @Environment(\.openURL) private var openURL
+    @Environment(\.requestReview) private var requestReview
+    @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("reviewPromptActionCount") private var reviewPromptActionCount = 0
+    @AppStorage("lastReviewPromptedAppVersion") private var lastReviewPromptedAppVersion = ""
+    @AppStorage("hasPendingReviewPrompt") private var hasPendingReviewPrompt = false
+
+    private let reviewPromptThreshold = 2
+
     var body: some View {
         VStack(alignment: .center, spacing: 15) {
             AsyncImage(url: URL(string: "https://s3.amazonaws.com/img.ultrasignup.com/event/banner/\(event.bannerID).jpg")) { phase in
@@ -46,6 +55,7 @@ struct RaceDetails: View {
        
             Button("Directions") {
                 if let url = URL(string: "maps://?saddr=&daddr=\(event.latitude),\(event.longitude)") {
+                    trackReviewPromptAction()
                     openURL(url)
                 }
             }
@@ -54,6 +64,7 @@ struct RaceDetails: View {
               
             Button("Register") {
                 if let url = URL(string: "https://ultrasignup.com/register.aspx?eid=\(event.id)") {
+                    trackReviewPromptAction()
                     openURL(url)
                 }
             }
@@ -64,8 +75,34 @@ struct RaceDetails: View {
            
         }
         .navigationTitle(event.eventName)
-        
-        
+        .onChange(of: scenePhase) {
+            requestReviewIfReady()
+        }
+    }
+
+    private func trackReviewPromptAction() {
+        reviewPromptActionCount += 1
+
+        if shouldRequestReview {
+            hasPendingReviewPrompt = true
+        }
+    }
+
+    private func requestReviewIfReady() {
+        guard scenePhase == .active, shouldRequestReview, hasPendingReviewPrompt else { return }
+
+        hasPendingReviewPrompt = false
+        lastReviewPromptedAppVersion = Bundle.main.appVersion
+
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(0.7))
+            requestReview()
+        }
+    }
+
+    private var shouldRequestReview: Bool {
+        reviewPromptActionCount >= reviewPromptThreshold
+        && lastReviewPromptedAppVersion != Bundle.main.appVersion
     }
 }
 

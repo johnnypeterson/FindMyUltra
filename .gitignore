@@ -5,3 +5,4 @@ xcuserdata
 MyDarwinV2.xcodeproj/xcshareddata/xcschemes
 *.generated.swift
 workspace.xml
+.derivedData/
